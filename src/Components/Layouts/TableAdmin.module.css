@@ -1,0 +1,11 @@
+.table th,
+td {
+  border: none;
+  border-bottom: 1px solid #dddddd;
+  padding: 15px;
+}
+
+.table {
+  min-width: 1200px;
+  border: none;
+}

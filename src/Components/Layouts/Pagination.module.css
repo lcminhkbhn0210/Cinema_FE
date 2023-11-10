@@ -1,0 +1,18 @@
+.active {
+  opacity: 0.5;
+}
+.btn__pagination {
+  border: 0.5px solid rgba(188, 196, 197, 0.5);
+  background-color: #eceff0;
+  color: #3e5641;
+  width: 45px;
+  height: 45px;
+}
+.btn__pre,
+.btn__next {
+  border: 0.3px solid rgba(188, 196, 197, 0.5);
+  background-color: #eceff0;
+  padding: 0.75rem;
+  width: 45px;
+  height: 45px;
+}

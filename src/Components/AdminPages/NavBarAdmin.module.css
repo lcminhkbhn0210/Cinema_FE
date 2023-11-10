@@ -1,0 +1,12 @@
+.nav {
+  height: calc(100% - 82px);
+  background-color: #fff;
+  width: 16.7%;
+  top: 5.5rem;
+  z-index: 4;
+}
+
+.icon__profile {
+  top: -10px;
+  right: -8px;
+}
