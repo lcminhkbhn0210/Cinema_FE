@@ -30,8 +30,9 @@ function LoginSignUp() {
         })
         .then((response) => {
           const user = response.data;
+
           if (user.userDTO) {
-            sessionStorage.setItem("user", user);
+            sessionStorage.setItem("user", JSON.stringify(user));
             let isAdmin = false;
             if (user.userDTO.type === "EMPLOYEE") {
               user.userDTO.authorities.map((el) => {

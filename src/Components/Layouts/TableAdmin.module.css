@@ -6,6 +6,7 @@ td {
 }
 
 .table {
-  min-width: 1200px;
+  min-width: 1300px;
   border: none;
+  max-width: 1300px;
 }

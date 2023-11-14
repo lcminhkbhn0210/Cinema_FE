@@ -6,11 +6,12 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const user = sessionStorage.getItem("user");
+    const user = JSON.parse(sessionStorage.getItem("user"));
     const token = user.jwt;
 
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers.Authorization = `Bearer ${token}`;
+      config.headers["Content-Type"] = "application/json";
     }
 
     return config;

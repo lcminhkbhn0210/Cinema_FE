@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LoginSignUp from "./Components/LoginSignup/LoginSignUp";
 import Admin from "./Components/AdminPages/Admin";
 import FilmManagerAdmin from "./Components/AdminPages/FilmManagerAdmin";
+import Manager from "./Components/AdminPages/Manager";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,8 @@ const router = createBrowserRouter([
         element: <Admin />,
         children: [
           { index: true, element: <FilmManagerAdmin /> },
-          { path: "/admin/film", element: <FilmManagerAdmin /> },
+          { path: "/admin/manager/film", element: <FilmManagerAdmin /> },
+          { path: "/admin/manager/:typeManager", element: <Manager /> },
         ],
       },
     ],
