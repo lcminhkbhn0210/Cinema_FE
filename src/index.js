@@ -8,6 +8,7 @@ import LoginSignUp from "./Components/LoginSignup/LoginSignUp";
 import Admin from "./Components/AdminPages/Admin";
 import FilmManagerAdmin from "./Components/AdminPages/FilmManagerAdmin";
 import Manager from "./Components/AdminPages/Manager";
+import Home from "./Customer/Pages/HomePage/Home";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
           { index: true, element: <FilmManagerAdmin /> },
           { path: "/admin/manager/film", element: <FilmManagerAdmin /> },
           { path: "/admin/manager/:typeManager", element: <Manager /> },
+        ],
+      },
+      {
+        path: "/user",
+        element: <Home />,
+        children: [
+          { index: true, element: <Home /> },
+          { path: "/user/home", element: <Home /> },
         ],
       },
     ],
