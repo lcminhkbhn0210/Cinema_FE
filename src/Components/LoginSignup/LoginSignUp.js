@@ -32,7 +32,7 @@ function LoginSignUp() {
           const user = response.data;
 
           if (user.userDTO) {
-            sessionStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("user", JSON.stringify(user));
             let isAdmin = false;
             if (user.userDTO.type === "EMPLOYEE") {
               user.userDTO.authorities.map((el) => {
@@ -41,7 +41,7 @@ function LoginSignUp() {
               });
             }
             if (isAdmin) navigate("/admin");
-            else navigate("/home");
+            else navigate("/user");
           }
         });
     } else {

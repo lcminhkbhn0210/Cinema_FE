@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.trend-card a {
+.trend-card button {
   position: relative;
   text-decoration: none;
   background: var(--primary);
@@ -19,7 +19,7 @@
   transition: 0.3s;
 }
 
-.trend-card a:hover {
+.trend-card button:hover {
   background: #191919;
 }
 

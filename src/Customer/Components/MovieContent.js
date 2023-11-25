@@ -2,6 +2,9 @@ import Button from "./Button";
 import "./moviecontent.css";
 
 function MovieContent(props) {
+  const handleBookOnClick = () => {
+    props.handleBookOnClick(props.movie.id);
+  };
   return (
     <div className={`content ${props.movie.active ? "active" : ""}`}>
       <img
@@ -25,6 +28,7 @@ function MovieContent(props) {
       </p>
       <div className="button">
         <Button
+          onClick={handleBookOnClick}
           icon={<ion-icon name="bookmark-outline"></ion-icon>}
           name="Book"
           color="#ff3700"

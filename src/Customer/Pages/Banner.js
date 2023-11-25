@@ -5,9 +5,14 @@ import MovieContent from "../Components/MovieContent";
 import MovieDate from "../Components/MovieDate";
 import PlayBtn from "../Components/PlayBtn";
 import MovieSwiper from "../Components/MovieSwiper";
+import { useNavigate } from "react-router";
 
 function Banner() {
+  const navigate = useNavigate();
   const [movies, setMovies] = useState([]);
+  const handleBookOnClick = (id) => {
+    navigate(`filmDetail/${id}`);
+  };
   useEffect(() => {
     const fetchData = () => {
       axios
@@ -47,7 +52,10 @@ function Banner() {
             <div className="container mx-auto">
               <div className="flex flex-wrap">
                 <div className="lg:w-1/2 md:w-full p-4">
-                  <MovieContent movie={movie} />
+                  <MovieContent
+                    movie={movie}
+                    handleBookOnClick={handleBookOnClick}
+                  />
                 </div>
                 <div className="lg:w-1/2 md:w-full p-4">
                   <MovieDate movie={movie} />

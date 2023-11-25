@@ -6,7 +6,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    const user = JSON.parse(sessionStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     const token = user.jwt;
 
     if (token) {

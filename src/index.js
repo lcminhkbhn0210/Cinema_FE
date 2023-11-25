@@ -9,6 +9,13 @@ import Admin from "./Components/AdminPages/Admin";
 import FilmManagerAdmin from "./Components/AdminPages/FilmManagerAdmin";
 import Manager from "./Components/AdminPages/Manager";
 import Home from "./Customer/Pages/HomePage/Home";
+import FilmDetail from "./Customer/Pages/FilmDetailPage/FilmDetail";
+import MainHome from "./Customer/Pages/MainHome/MainHome";
+import Cinema from "./Customer/Pages/Cinema";
+import ShowTimes from "./Customer/Pages/ShowTimes";
+import Ticket from "./Customer/Pages/Ticket";
+import PayPal from "./Customer/Pages/PayPal";
+import Voucher from "./Customer/Pages/Voucher";
 
 const router = createBrowserRouter([
   {
@@ -28,10 +35,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/user",
-        element: <Home />,
+        element: <MainHome />,
         children: [
           { index: true, element: <Home /> },
           { path: "/user/home", element: <Home /> },
+          { path: "/user/filmDetail/:filmId", element: <FilmDetail /> },
+          { path: "/user/cinema/:filmId", element: <Cinema /> },
+          { path: "/user/showtimes/:filmId", element: <ShowTimes /> },
+          { path: "/user/ticket/:showTimesId", element: <Ticket /> },
+          { path: "/user/paypal/success", element: <PayPal /> },
+          { path: "/user/voucher", element: <Voucher /> },
         ],
       },
     ],
