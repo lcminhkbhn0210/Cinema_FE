@@ -3,7 +3,17 @@ import axios from "../../Components/LoginSignup/axios-instance";
 import { Header } from "antd/es/layout/layout";
 
 function Voucher() {
-  const handleVoucherOnClick = () => {
+  const handleVoucherOnClick = async (e) => {
+    await axios
+      .delete(
+        `http://localhost:8080/vouchers/voucherCustomer/${e.currentTarget.dataset.value}`
+      )
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     axios
       .post(
         "http://localhost:8080/paypal/payment",
@@ -21,10 +31,9 @@ function Voucher() {
   };
   const [vouchers, setVouchers] = useState([]);
   useEffect(() => {
-    console.log();
     axios
       .get(
-        `http://localhost:8080/voucher/voucherCustomer?username=${
+        `http://localhost:8080/vouchers/voucherCustomer?username=${
           JSON.parse(localStorage.getItem("user")).userDTO.username
         }`
       )
@@ -45,6 +54,7 @@ function Voucher() {
             vouchers.map((voucher) => {
               return (
                 <li
+                  data-value={voucher.id}
                   onClick={handleVoucherOnClick}
                   className="px-8 py-4 bg-orange-500 mb-4 cursor-pointer"
                   key={voucher.id}

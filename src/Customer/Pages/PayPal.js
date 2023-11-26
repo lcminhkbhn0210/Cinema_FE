@@ -30,12 +30,33 @@ function PayPal() {
         className={`${styles.content} bg-white m-auto w-fit p-10 rounded-xl mt-10`}
       >
         <div className="text-center">
-          <h4 className="text-sm">{paypalResponse?.code}</h4>
-          <h1 className="text-4xl">{paypalResponse.filmName}</h1>
-          <h4>{paypalResponse.cinema} Screen</h4>
-          <span>18/04/2019</span>
-          <h1 className="text-4xl">20:00</h1>
-          <h4 className="text-sm">~22:20</h4>
+          <h4 className="text-sm">
+            Code: {paypalResponse.filmName ? paypalResponse?.code : "ABCD"}
+          </h4>
+          <h1 className="text-4xl">
+            {paypalResponse.filmName ? paypalResponse.filmName : ""}
+          </h1>
+          <h4>{paypalResponse.filmName ? paypalResponse.cinema : ""} Screen</h4>
+          <span>
+            {paypalResponse.filmName
+              ? paypalResponse?.dateStart
+                  .slice(0, 10)
+                  .split("-")
+                  .reverse()
+                  .join("-")
+              : ""}
+          </span>
+          <h1 className="text-4xl">
+            {paypalResponse.filmName
+              ? paypalResponse?.dateStart.slice(11, 16)
+              : ""}
+          </h1>
+          <h4 className="text-sm">
+            ~
+            {paypalResponse.filmName
+              ? paypalResponse?.dateEnd.slice(11, 16)
+              : ""}
+          </h4>
         </div>
         <div className="text-center">
           <button

@@ -13,7 +13,7 @@ function Header() {
   };
 
   return (
-    <div className="grid grid-cols-12 fixed top-1 w-full z-10000 ">
+    <div className="grid grid-cols-12 fixed top-1 w-full z-50 ">
       <div className="col-span-2 bg-gray_black items-center p-4 flex rounded-e-lg  shadow-sm shadow-black justify-between">
         <img src={cinema_logo} alt="Logo" className="block w-12 h-12 " />
         <h1 className="text-3xl text-white">Cinema</h1>

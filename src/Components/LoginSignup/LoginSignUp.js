@@ -8,6 +8,7 @@ import password_icon from "../Assets/password.png";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
 import axios from "axios";
+import { message } from "antd";
 
 function LoginSignUp() {
   const emailRef = useRef(null);
@@ -18,7 +19,28 @@ function LoginSignUp() {
   const [action, setAction] = useState("Login");
 
   const onClickSignUpHandle = () => {
-    setAction("Sign Up");
+    if (action === "Sign up") {
+      axios
+        .post("http://localhost:8080/auth/register", {
+          username: emailRef.current.value,
+          password: passwordRef.current.value,
+          name: nameRef.current.value,
+          email: emailRef.current.value,
+          phonenumber: "0919469733",
+        })
+        .then((res) => {
+          if (res.data.user) {
+            message.success(res.data.message);
+          } else {
+            message.error(res.data.message);
+          }
+        })
+        .catch((err) => {
+          message.error(err.message);
+        });
+    } else {
+      setAction("Sign up");
+    }
   };
 
   const onClickLoginHandle = () => {
@@ -29,19 +51,24 @@ function LoginSignUp() {
           password: passwordRef.current.value,
         })
         .then((response) => {
-          const user = response.data;
+          if (response.data.userDTO) {
+            const user = response.data;
 
-          if (user.userDTO) {
-            localStorage.setItem("user", JSON.stringify(user));
-            let isAdmin = false;
-            if (user.userDTO.type === "EMPLOYEE") {
-              user.userDTO.authorities.map((el) => {
-                if (el.authority === "ADMIN") isAdmin = true;
-                return el;
-              });
+            if (user.userDTO) {
+              localStorage.removeItem("user");
+              localStorage.setItem("user", JSON.stringify(user));
+              let isAdmin = false;
+              if (user.userDTO.type === "EMPLOYEE") {
+                user.userDTO.authorities.map((el) => {
+                  if (el.authority === "ADMIN") isAdmin = true;
+                  return el;
+                });
+              }
+              if (isAdmin) navigate("/admin");
+              else navigate("/user");
             }
-            if (isAdmin) navigate("/admin");
-            else navigate("/user");
+          } else {
+            message.error(response.data.message);
           }
         });
     } else {

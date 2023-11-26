@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 function FilmDetailCard(props) {
   const navigate = useNavigate();
   const handlBookOnClick = () => {
+    localStorage.removeItem("filmId");
     localStorage.setItem("filmId", props.film.id);
     navigate(`/user/cinema/${props.film.id}`);
   };

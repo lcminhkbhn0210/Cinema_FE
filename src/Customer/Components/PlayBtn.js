@@ -13,7 +13,7 @@ function PlayBtn(props) {
         props.movie.active ? "active" : ""
       }`}
     >
-      <button className="playBtn" onClick={toggleModal}>
+      <button className="playBtn cursor-pointer" onClick={toggleModal}>
         <ion-icon name="play-outline"></ion-icon>
       </button>
       <p>Watch Trailer</p>

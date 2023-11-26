@@ -2,9 +2,16 @@ import "./modal.css";
 
 function Modal(props) {
   return (
-    <div className={`movieModal ${props.status ? "active" : ""}`}>
-      <div className="modalClose" href="/user" onClick={props.toggleModal}>
-        <ion-icon name="close-outline"></ion-icon>
+    <div
+      className={`movieModal ${props.status ? "active" : ""}`}
+      onClick={props.toggleModal}
+    >
+      <div className="modalClose cursor-pointer" onClick={props.toggleModal}>
+        <ion-icon
+          name="close-outline"
+          className="cursor-pointer"
+          onClick={props.toggleModal}
+        ></ion-icon>
       </div>
       <iframe
         width="1280"

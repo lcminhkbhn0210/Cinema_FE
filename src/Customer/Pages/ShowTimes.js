@@ -35,7 +35,12 @@ function ShowTimes() {
     axios
       .get(`http://localhost:8080/showtimes/day?date=${date}T00:00:00`)
       .then((res) => {
-        setShowTimes(res.data);
+        const copyShowtimes = res.data.filter((showtime) => {
+          if (showtime.film.id)
+            return String(showtime.film?.id) === localStorage.getItem("filmId");
+          else return String(showtime?.film) === localStorage.getItem("filmId");
+        });
+        setShowTimes(copyShowtimes);
       });
   }, [date]);
   return (
