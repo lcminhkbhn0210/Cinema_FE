@@ -19,29 +19,6 @@ function AddEditAdmin(props) {
     created: "",
   });
 
-  const handelSubmitForm = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("http://localhost:8080/film", film)
-      .then((response) => {
-        message.success("Successful");
-        props.handelAddIsSuccess(response.data);
-      })
-      .catch((err) => {
-        message.error("Add Fail");
-      });
-  };
-
-  const handelChange = (e) => {
-    let { name, value } = e.target;
-    if (name === "filmProvider") value = JSON.parse(value);
-
-    setFilm({
-      ...film,
-      [name]: value,
-    });
-  };
-
   useEffect(() => {
     const fetchDataFilmProvider = async () => {
       await axios
@@ -60,6 +37,28 @@ function AddEditAdmin(props) {
     };
     fetchDataFilmProvider();
   }, []);
+
+  const handelSubmitForm = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:8080/film", film)
+      .then((response) => {
+        message.success("Successful");
+        props.handelAddIsSuccess(response.data);
+      })
+      .catch((err) => {
+        message.error("Add Fail");
+      });
+  };
+
+  const handelChange = (e) => {
+    let { name, value } = e.target;
+    if (name === "filmProvider") value = JSON.parse(value);
+    setFilm({
+      ...film,
+      [name]: value,
+    });
+  }
 
   return (
     <>
@@ -101,7 +100,7 @@ function AddEditAdmin(props) {
             />
           </div>
           <div className="flex flex-col p-2 w-1/4">
-            <label className="mb-2">FilmRating</label>
+            <label className="mb-2">Film Provider</label>
             <select
               className={styles.input}
               onChange={handelChange}
@@ -144,7 +143,7 @@ function AddEditAdmin(props) {
             <input
               className={styles.input}
               type="number"
-              min={0}
+              min={1}
               onChange={handelChange}
               ref={inputLengthRef}
               name="length"

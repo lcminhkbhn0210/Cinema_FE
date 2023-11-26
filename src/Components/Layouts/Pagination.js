@@ -22,7 +22,7 @@ function Pagination(props) {
     pageNumbers.push(i);
   }
   return (
-    <>
+    <div>
       <button
         onClick={handelOnClickPrePage}
         className={`${styles.btn__pre} rounded-s-lg  font-bold shadow-sm text-yellow-400`}
@@ -101,7 +101,7 @@ function Pagination(props) {
         onClick={handelOnClickNextPage}
         className={`${styles.btn__next} rounded-e-md shadow-sm font-bold text-yellow-400`}
       >{`>`}</button>
-    </>
+    </div>
   );
 }
 

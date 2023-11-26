@@ -6,36 +6,49 @@ import TableAdmin from "../Layouts/TableAdmin";
 import Pagination from "../Layouts/Pagination";
 import styles from "./Manager.module.css";
 import AddEditItem from "./AddEditItem";
-
+import EditProductsDrawer from "../ProductsPages/EditProductsDrawer";
+import AddProductsDrawer from "../ProductsPages/AddProductsDrawer";
 function Manager() {
   const { typeManager } = useParams();
   const [items, setItems] = useState([]);
   const [columns, setColumns] = useState([]);
   const [isActive, setIsActive] = useState(1);
   const [addEditIsClick, setAddEditIsClick] = useState(false);
+  const [isOpen,setIsOpen] = useState(false) // drawer
   const itemsPerPage = 5;
 
   const handelAddIsSuccess = () => {
     setAddEditIsClick(false);
-  };
+  }
   const handelAddOnClick = () => {
     setAddEditIsClick(true);
-  };
+  }
+  // drawer
+  const drawerToggle = () => {
+      setIsOpen(!isOpen)
+  }
+  const handelEditOnClick = (valueId) =>{
+    console.log(valueId)
+  }
   const handelBodyOnClick = (e) => {
     if (e.target?.id === "managerBody") {
-      setAddEditIsClick(false);
+      setAddEditIsClick(false)
     }
-  };
+  }
   const handelIsActiveChange = (active) => {
     if (active >= 1 && active <= Math.ceil(items.length / itemsPerPage))
       setIsActive(active);
-  };
+  }
 
   const handelDeleteIsSuccess = (itemId) => {
     const itemsCopy = items.filter((el) => el.id !== Number(itemId));
     setItems(itemsCopy);
   };
-
+  const handelIsDeleteIsSuccess = (itemId) => {
+    const itemsCopy = items.filter((el) => el.id !== Number(itemId));
+    setItems(itemsCopy);
+    console.log("id in manager", itemId)
+  };
   useEffect(() => {
     const handelFetchItems = async () => {
       await axios
@@ -52,16 +65,15 @@ function Manager() {
             arr = new Set(arr);
             tempColumn = [...arr];
             tempColumn = tempColumn.filter((el) => el !== "bills");
-            tempColumn.push("Action");
-            console.log(response.data);
-            setColumns(tempColumn);
+            tempColumn.push("Action")
+            setColumns(tempColumn)
           }
         })
         .catch((error) => {
           message.error("Khong co phan hoi tu may chu");
           console.log(error);
-        });
-    };
+        })
+    }
 
     handelFetchItems();
   }, [typeManager]);
@@ -85,6 +97,8 @@ function Manager() {
         itemsPerPage={itemsPerPage}
         isActive={isActive}
         handelDeleteIsSuccess={handelDeleteIsSuccess}
+        handelIsDeleteIsSuccess={handelIsDeleteIsSuccess}
+        handleEditOnClick={handelEditOnClick}
         typeManager={typeManager}
       />
       <div className="items-center flex justify-end w-4/5 mt-3">
@@ -98,7 +112,8 @@ function Manager() {
           addEditIsClick ? "" : "hidden"
         }`}
       >
-        <AddEditItem handelAddIsSuccess={handelAddIsSuccess} />
+        {/* <AddEditItem  handelAddIsSuccess={handelAddIsSuccess} /> */}
+        <AddProductsDrawer /> 
       </div>
     </>
   );

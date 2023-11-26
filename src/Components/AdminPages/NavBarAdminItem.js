@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function NavBarAdminItem(props) {
   return (
     <>
-      <Link to={`/admin/manager/${props.item.title.toLowerCase()}`}>
+      <Link to={`/admin/manager/${props.item.title?.toLowerCase()}`}>
         <li className="p-4 uppercase text-sm  mx-6 cursor-pointer hover:text-orange-400 transition duration-300 ">
           <div className="flex items-center">
             <i className="mr-4">

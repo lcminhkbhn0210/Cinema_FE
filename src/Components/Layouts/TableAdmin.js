@@ -1,31 +1,68 @@
-import styles from "./TableAdmin.module.css";
-import { Link } from "react-router-dom";
-import axios from "../LoginSignup/axios-instance";
-import { message } from "antd";
+import styles from "./TableAdmin.module.css"
+import { Link } from "react-router-dom"
+import axios from "../LoginSignup/axios-instance"
+import { message } from "antd"
+import { useEffect, useState } from "react"
+import EditProductsDrawer from "../ProductsPages/EditProductsDrawer"
+import EditShowtimesDrawer from "../ShowtimesPage/EditShowtimesDrawer"
+import EditFilmAdmin from "../AdminPages/EditFilmAdmin"
 
 function TableAdmin(props) {
+  const [itemId, setItemId] = useState(0);
+  const handleClose = (status) => {
+    setIsOpen(status)
+  }
+  const [isOpen,setIsOpen] = useState(false) // drawer
+  const [typeDrawTable,setTypeDrawTable] = useState(0)
+  const typeDT = [
+    <EditFilmAdmin/>,
+    <EditProductsDrawer productID={itemId} closeDrawer={handleClose}/>,
+    <EditShowtimesDrawer />
+  ]
+
   const deleteItem = async (id) => [
     await axios
       .delete(`http://localhost:8080/${props.typeManager}/${id}`)
       .then((response) => {
+        props.handelIsDeleteSuccess(response.data?.id)
+        props.handelIsDeleteIsSuccess(response.data?.id)
         message.success("Xoa thanh cong");
-        props.handelIsDeleteSuccess(response.data?.id);
+        
+        console.log("id",itemId)
       })
       .catch((error) => {
-        message.error("Xoa that bai");
-        console.log(error);
+        message.error("Xoa that bai")
+        console.log(error)
       }),
   ];
   const handelDeleteOnClick = (e) => {
-    const userConfirm = window.confirm("Ban co muon xoa khong?");
+    const userConfirm = window.confirm("Ban co muon xoa khong?")
     if (userConfirm) {
       deleteItem(e.target.value);
     }
   };
+
   const handelEditOnClick = (e) => {
-    props.handleEditOnClick(e.target.value);
-  };
+    setItemId(e.target.value)
+    drawerToggle()
+  }
+
+  const drawerToggle = () => {
+    setIsOpen(!isOpen)
+    // onTypeManager()
+  }
+  useEffect(() => {
+    onTypeManager()
+  })
+
+  const onTypeManager = () =>{
+    if (props.typeManager === 'product'){setTypeDrawTable(1)}
+    else if (props.typeManager === 'showtimes'){setTypeDrawTable(2)}
+
+    else {setTypeDrawTable(0)}
+  }
   return (
+    <div className={`${styles.containers}`}>
     <table
       className={`bg-white text-black rounded-lg w-3/5 ml-28 ${styles.table} border-collapse shadow-lg border-none p-4 overflow-x-scroll w-auto`}
     >
@@ -46,7 +83,7 @@ function TableAdmin(props) {
           return (
             <tbody
               key={el.id}
-              className=" cursor-pointer hover:bg-green-200  transition ease-out duration-700"
+              className=" cursor-pointer hover:bg-gray-200  transition ease-out duration-700"
             >
               <tr className="">
                 {props.columns.map((element, index) => {
@@ -122,6 +159,16 @@ function TableAdmin(props) {
         } else return null;
       })}
     </table>
+      <div >
+        <div>{isOpen && <div onClick={drawerToggle} 
+        className={`h-full w-full fixed bg-black ${styles.modal} z-10`}
+        ></div>}
+        </div>
+        <span className={`${styles.editdrawer}`}>
+            {isOpen && typeDT[typeDrawTable]}
+        </span>
+      </div>
+    </div>
   );
 }
 
