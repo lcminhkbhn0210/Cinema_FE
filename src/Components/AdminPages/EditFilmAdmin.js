@@ -7,7 +7,7 @@ function EditFilmAdmin(props) {
   const filmId = props.filmId;
   const formRef = useRef();
   const inputLengthRef = useRef();
-
+  const [film, setFilm] = useState({});
   const updateFilm = async () => {
     await axios
       .put(`http://localhost:8080/film/${props.filmId}`, film)
@@ -28,14 +28,11 @@ function EditFilmAdmin(props) {
 
   const handelChange = (e) => {
     const { name, value } = e.target;
-
     setFilm({
       ...film,
       [name]: value,
     });
   };
-
-  const [film, setFilm] = useState({});
 
   useEffect(() => {
     axios
